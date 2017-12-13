@@ -1,0 +1,10 @@
+<div *ngFor="let article of articles">
+	<div class="article-container">
+		<div class="small-12 medium-5 medium-offset-1 columns" >
+			<a routerLink="/articles/{{ article._id }}">{{ article.title }}</a>
+		</div>
+		<div class="small-12 medium-6 columns">
+			<p>{{ article.content | slice: 0:330 }}</p>
+		</div>
+	</div>
+</div>
