@@ -19,7 +19,6 @@ router.get('/all', function(req, res){
 			if (err) {
 				console.log('Error getting the articles');
 			} else {
-				console.log(articles);
 				res.json(articles);
 			}
 		});
@@ -35,6 +34,22 @@ router.get('/articles/:id', function(req, res){
 				res.json(article);
 			}
 		});
+});
+
+router.post('/create', function (req, res) {
+	console.log('Posting an article');
+	var newArticle = new article();
+	newArticle.title = req.body.title;
+	newArticle.content = req.body.content;
+	newArticle.author = req.body.author;
+
+	newArticle.save(function(err, article) {
+		if(err) {
+			console.log('error creating an article');
+		} else {
+			res.json(article);
+		}
+	});
 });
 
 module.exports = router;
