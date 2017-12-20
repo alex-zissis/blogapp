@@ -11,11 +11,17 @@ export class HomeComponent implements OnInit {
 
 	articles: Array<Article>;
 
+  showSpinner: boolean = true;
+
     constructor(private _articleService: ArticleService) { }
 
     ngOnInit() {
     	this._articleService.getArticles()
-    		.subscribe(res => this.articles = res);
+        .subscribe(res => {
+          this.showSpinner = false;
+          this.articles = res;
+        });
+      
     }
 
 }

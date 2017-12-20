@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { ArticleService } from './article.service';
 import { ArticleComponent } from './article/article.component';
 import { CreateComponent } from './create/create.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CreateComponent } from './create/create.component';
     HeaderComponent,
     HomeComponent,
     ArticleComponent,
-    CreateComponent
+    CreateComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
