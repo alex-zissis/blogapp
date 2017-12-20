@@ -12,14 +12,19 @@ export class ArticleComponent implements OnInit {
 
   article: Array<Article>;
 
+  showSpinnerArticle: boolean = true;
+
   constructor(private _articleService: ArticleService, private router: Router, private aR: ActivatedRoute) { }
 
   ngOnInit() {
   	this.aR.params.subscribe((params) => {
-  		let id = params['id'];
+      let id = params['id'];
 
   		this._articleService.getArticle(id)
-  			.subscribe(res => this.article = res);
+  			.subscribe(res => {
+          this.showSpinnerArticle = false;
+          this.article = res;
+        });
   	});
   }
 
