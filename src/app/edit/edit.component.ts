@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EditComponent implements OnInit {
 
   articleId: string;
+  article: Article;
   articleFrm: FormGroup;
   articles: Array<Article>;
 
@@ -23,12 +24,18 @@ export class EditComponent implements OnInit {
 
     this.aR.params.subscribe((params) => {
       this.articleId = params.id;
+      this._articleService.getArticle(params.id)
+        .subscribe((res) => {
+          this.article = res;
+          console.log(this.article);
+
+          this.articleFrm = this.fb.group({
+            'title' : [this.article['title'], Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(45)])],
+            'content' : [this.article['content'], Validators.compose([Validators.required, Validators.minLength(10)])],
+          });
+        });
     });
 
-    this.articleFrm = this.fb.group({
-      'title' : [null, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(45)])],
-      'content' : [null, Validators.compose([Validators.required, Validators.minLength(10)])],
-    });
   }
 
   editArticle(article) {

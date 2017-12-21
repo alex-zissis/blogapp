@@ -19,6 +19,7 @@ router.get('/all', function(req, res){
 			if (err) {
 				console.log('Error getting the articles');
 			} else {
+				articles = articles.reverse();
 				res.json(articles);
 			}
 		});
