@@ -20,6 +20,11 @@ body {
     color: #0099FF;
 }
 
+.articleInfo a {
+    color: #737373;
+    font-size: .8em;
+}
+
 .article-container p {
     color: #737373;
 }

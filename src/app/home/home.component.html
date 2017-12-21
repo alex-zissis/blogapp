@@ -6,7 +6,8 @@
 			<a routerLink="/articles/{{ article._id }}">{{ article.title }}</a>
 		</div>
 		<div class="small-12 medium-6 columns">
-			<p>{{ article.content | slice: 0:330 }}...</p>
+			<p class="articleInfo">Author: <a routerLink="/show/articles/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : 'HH:mm' }})</i><span *ngIf="article.createdAt != article.updatedAt">  | Updated: {{ article.updatedAt| date : 'yyyy-MM-dd' }} <i>({{ article.updatedAt| date : 'HH:mm' }})</i></span></p>
+			<p class="content">{{ article.content | slice: 0:330 }}...</p>
 		</div>
 	</div>
 </div>

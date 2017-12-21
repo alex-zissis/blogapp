@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const article = require('../models/article');
 
-const db = "mongodb://articles-admin:qb4u.2d8@ds141406.mlab.com:41406/contacts-alexz";
+const db = "mongodb://articles-admin:qb4u.2d8@localhost:27017/blogapp";
 
 mongoose.Promise = global.Promise;
 
@@ -50,6 +50,36 @@ router.post('/create', function (req, res) {
 			res.json(article);
 		}
 	});
+});
+
+router.patch('/articles/update/:id', function (req, res) {
+    var updateObject = req.body; // {last_name : "smith", age: 44}
+    var id = req.params.id;
+
+	article.findById(id, function (err, post) {
+		if (err) return console.log(err);
+		
+		var altered = false;
+
+		if(post.title != updateObject.title){
+			post.title = updateObject.title;
+			altered = true;
+		}
+
+		if(post.content != updateObject.content){
+			post.content = updateObject.content;
+			altered = true;
+		}
+
+		if(altered){
+			post.updatedAt = Date.now();
+		}
+
+		post.save(function (err, updPost) {
+		  if (err) return console.log(err);
+		  res.send(updPost);
+		});
+	  });
 });
 
 module.exports = router;

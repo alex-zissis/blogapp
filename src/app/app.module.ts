@@ -13,6 +13,7 @@ import { ArticleService } from './article.service';
 import { ArticleComponent } from './article/article.component';
 import { CreateComponent } from './create/create.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     HomeComponent,
     ArticleComponent,
     CreateComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
