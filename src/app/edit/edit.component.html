@@ -1,6 +1,4 @@
-<app-loading-spinner *ngIf="showSpinnerEdit"></app-loading-spinner>
-
-<div *ngIf="showSpinnerEdit == false" class="article-container">
+<div class="article-container">
   <form [formGroup]="articleFrm" (ngSubmit)="editArticle(articleFrm.value)" *ngIf="articleFrm">
     <div class="row expanded">
       <div class="small-12 columns">

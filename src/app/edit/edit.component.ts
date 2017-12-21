@@ -15,7 +15,6 @@ export class EditComponent implements OnInit {
   article: Article;
   articleFrm: FormGroup;
   articles: Array<Article>;
-  showSpinnerEdit: boolean = true;
 
   constructor(private _articleService: ArticleService, private router: Router, private aR: ActivatedRoute, private fb: FormBuilder) { }
 
@@ -30,21 +29,13 @@ export class EditComponent implements OnInit {
           this.article = res;
           console.log(this.article);
 
-          this.populateForm(function () {
-            console.log('please work');
+          this.articleFrm = this.fb.group({
+            'title' : [this.article['title'], Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(45)])],
+            'content' : [this.article['content'], Validators.compose([Validators.required, Validators.minLength(10)])],
           });
         });
     });
 
-  }
-
-  populateForm(callback){
-    this.articleFrm = this.fb.group({
-      'title' : [this.article['title'], Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(45)])],
-      'content' : [this.article['content'], Validators.compose([Validators.required, Validators.minLength(10)])],
-    });
-
-    this.showSpinnerEdit = false;
   }
 
   editArticle(article) {
