@@ -37,10 +37,18 @@ body {
     .content {
         width: 100%;
     }
+
+    .articlesList {
+        width: 100%;
+    }
 }
 
 @media only screen and (min-width: 600px) {
     .content {
+        width: 100%;
+    }
+
+    .articlesList {
         width: 100%;
     }
 }
@@ -49,11 +57,22 @@ body {
     .content {
         width: 100%;
     }
+
+    .articlesList {
+        width: 100%;
+        max-width: 900px;
+    }
 }
 
 @media only screen and (min-width: 1080px) {
     .content {
-        width: 900px;
+        width: 1080px;
+    }
+
+    .articlesList {
+        width: 80%;
+        min-width: 900px;
+        max-width: 100%;
     }
 }
 
@@ -71,6 +90,6 @@ body {
 
 @media only screen and (min-width: 2100px)  and (min-height: 1181px) {
     .content {
-        width: 1900px;
+        width: 2100px;
     }
 }

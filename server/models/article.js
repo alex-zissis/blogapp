@@ -5,6 +5,7 @@ const articleSchema = new Schema({
 	title: String,
 	content: String,
 	author: String,
+	category: String,
 },{
 	timestamps: true
 });

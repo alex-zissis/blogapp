@@ -7,7 +7,7 @@
 				<a routerLink="#">{{ article.title }}</a><br>
 				<p class="articleInfo">Author: <a routerLink="/show/articles/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : ' HH:mm' }})</i></p>
 				<a routerLink="/edit/{{ article._id }}" class="btns">Edit Article</a><a (click)="deleteArticle(article._id)" class="btns">Delete Article</a>				
-				<div class="content" [innerHTML]="article.content"></div>
+				<div class="content" [froalaView]="article.content"></div>
 			</div>
 
 		</div>

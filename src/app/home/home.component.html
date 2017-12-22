@@ -1,13 +1,13 @@
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
 
-<div *ngFor="let article of articles">
+<div *ngFor="let article of articles" class="articlesList">
 	<div class="article-container">
-		<div class="small-12 medium-5 medium-offset-1 columns" >
+		<div class="small-12 medium-12 medium-offset-1 columns" >
 			<a routerLink="/articles/{{ article._id }}">{{ article.title }}</a>
 		</div>
-		<div class="small-12 medium-6 columns">
+		<div class="small-12 medium-12 columns">
 			<p class="articleInfo">Author: <a routerLink="/show/articles/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : 'HH:mm' }})</i><span *ngIf="article.createdAt != article.updatedAt">  | Updated: {{ article.updatedAt| date : 'yyyy-MM-dd' }} <i>({{ article.updatedAt| date : 'HH:mm' }})</i></span></p>
-			<p class="content">{{ article.content | slice: 0:330 }}...</p>
+			<p class="description">{{ article.description }}</p>
 		</div>
 	</div>
 </div>
