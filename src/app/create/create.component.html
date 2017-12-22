@@ -11,7 +11,7 @@
         </div>
 
         <label>Article Content
-          <textarea name="content" id="content" required [formControl]="articleFrm.controls['content']" formControlName="content"></textarea>
+          <textarea [froalaEditor] name="content" id="content" required [formControl]="articleFrm.controls['content']" formControlName="content"></textarea>
         </label>
 
         <div class="alert" *ngIf="!articleFrm.controls['content'].valid && articleFrm.controls['content'].touched">
@@ -20,7 +20,7 @@
 
         <label>Author
             <input type="text" name="author" required [formControl]="articleFrm.controls['author']" formControlName="author">
-          </label>
+        </label>
   
           <div class="alert" *ngIf="!articleFrm.controls['author'].valid && articleFrm.controls['author'].touched">
               You must specify an author that's at least 4 characters long

@@ -3,8 +3,8 @@ body {
     background-color:#F1F1F1;
     padding: 4em 0;
     font-family: 'Raleway';
+    min-width: 300px;
 }
-
 .article-container {
     background:#fff;
     border-left: 10px solid #093F68;
@@ -27,4 +27,50 @@ body {
 
 .article-container p {
     color: #737373;
+}
+
+.content {
+    width: 50%;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 599px) {
+    .content {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .content {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .content {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    .content {
+        width: 900px;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .content {
+        width: 1200px;
+    }
+}
+
+@media only screen and (min-width: 1800px) and (min-height: 1012px) {
+    .content {
+        width: 1600px;
+    }
+}
+
+@media only screen and (min-width: 2100px)  and (min-height: 1181px) {
+    .content {
+        width: 1900px;
+    }
 }
