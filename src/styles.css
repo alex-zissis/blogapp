@@ -7,7 +7,7 @@ body {
 }
 .article-container {
     background:#fff;
-    border-left: 10px solid #093F68;
+    /*border-left: 10px solid #093F68;*/
     padding: 2em 0;
     margin-bottom: 1rem;
 }
@@ -70,7 +70,7 @@ body {
     }
 
     .articlesList {
-        width: 80%;
+        width: 70%;
         min-width: 900px;
         max-width: 100%;
     }

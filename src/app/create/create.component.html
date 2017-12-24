@@ -22,9 +22,14 @@
             <input type="text" name="author" required [formControl]="articleFrm.controls['author']" formControlName="author">
         </label>
   
-          <div class="alert" *ngIf="!articleFrm.controls['author'].valid && articleFrm.controls['author'].touched">
-              You must specify an author that's at least 4 characters long
-          </div>
+        <div class="alert" *ngIf="!articleFrm.controls['author'].valid && articleFrm.controls['author'].touched">
+            You must specify an author that's at least 4 characters long
+        </div>
+
+        <select id="categorySelect" name="category" [(ngModel)]="selectedCategory">
+            <option [ngValue]="" selected>Select a category</option>
+            <option *ngFor="let category of categories" [ngValue]="category.name" >{{category.name}}</option>
+        </select>
 
           <input type="submit" class="cta-btn filled" value="Post Article" [disabled]="!articleFrm.valid">
   

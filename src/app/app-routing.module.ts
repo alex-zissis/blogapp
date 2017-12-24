@@ -13,6 +13,14 @@ const routes: Routes = [
 		component: HomeComponent
 	},
 	{
+		path: 'articles/category/:category',
+		component: HomeComponent
+	},
+	{
+		path: 'articles/author/:author',
+		component: HomeComponent
+	},
+	{
 		path: 'articles/:id',
 		component: ArticleComponent
 	},

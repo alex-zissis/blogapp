@@ -1,3 +1,27 @@
 .description {
     font-size: 0.8em;
 }
+
+.filters{
+    display: inline-block;
+    padding: 5px;
+}
+
+.filterButtons {
+    background-color: transparent;
+	padding: 7px 12px;
+    margin: 0px 0 10px 5px;
+	display: inline-block;
+}
+
+.articlesList h4 {
+    margin-left: 10px;
+}
+
+.catheading {
+    display: inline-block;
+}
+
+#catFilterBtnAll {
+    border: 2px solid #4C89B2;
+}

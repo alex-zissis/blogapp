@@ -15,6 +15,16 @@ export class ArticleService {
 	    .map(result => this.result = result.json());
   }
 
+  getArticlesByCategory(cat) {
+	  return this._http.get("/api/articles/category/"+cat)
+	    .map(result => this.result = result.json());
+  }
+
+  getArticlesByAuthor(auth) {
+	  return this._http.get("/api/articles/author/"+auth)
+	    .map(result => this.result = result.json());
+  }
+
   getArticle(id) {
   	return this._http.get("/api/articles/"+id)
   		.map(result => this.result = result.json());

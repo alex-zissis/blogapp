@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../article.service';
+import { CategoryService } from '../category.service';
 import { Article } from '../article';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,9 +15,11 @@ export class CreateComponent implements OnInit {
   articleFrm: FormGroup;
   articles: Array<Article>;
 
-  constructor(private _articleService: ArticleService, private router: Router, private aR: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private _articleService: ArticleService, private _categoryService: CategoryService, private router: Router, private aR: ActivatedRoute, private fb: FormBuilder) { }
   
   ngOnInit() {
+    //this._categoryService.getCategories()
+
     this._articleService.getArticles()
       .subscribe(res=> this.articles = res);
 

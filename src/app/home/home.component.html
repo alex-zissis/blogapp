@@ -1,12 +1,16 @@
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
 
+<div class="filtersContainer" class="articlesList">
+	<div class="catheading"><h4>Categories:</h4></div><div class="filters"><a id="catFilterBtnAll" routerLink="/" class="filterButtons">All</a></div><div *ngFor="let category of categories" class="filters"><a id="catFilterBtn{{category.name}}" routerLink="/articles/category/{{ category.name }}" class="filterButtons">{{ category.name }}</a></div>
+</div>
+
 <div *ngFor="let article of articles" class="articlesList">
-	<div class="article-container">
+	<div class="article-container" [id]="article._id">
 		<div class="small-12 medium-12 medium-offset-1 columns" >
-			<a routerLink="/articles/{{ article._id }}">{{ article.title }}</a>
+			<a id="artTitleLink{{article._id}}" routerLink="/articles/{{ article._id }}">{{ article.title }}</a>
 		</div>
 		<div class="small-12 medium-12 columns">
-			<p class="articleInfo">Author: <a routerLink="/show/articles/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : 'HH:mm' }})</i><span *ngIf="article.createdAt != article.updatedAt">  | Updated: {{ article.updatedAt| date : 'yyyy-MM-dd' }} <i>({{ article.updatedAt| date : 'HH:mm' }})</i></span></p>
+			<p class="articleInfo">Category: <a routerLink="/articles/category/{{ article.category }}">{{ article.category }}</a> | Author: <a routerLink="/articles/author/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : 'HH:mm' }})</i><span *ngIf="article.createdAt != article.updatedAt">  | Updated: {{ article.updatedAt| date : 'yyyy-MM-dd' }} <i>({{ article.updatedAt| date : 'HH:mm' }})</i></span></p>
 			<p class="description">{{ article.description }}</p>
 		</div>
 	</div>
