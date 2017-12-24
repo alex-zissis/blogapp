@@ -49,7 +49,6 @@ export class HomeComponent implements OnInit {
     }
 
     displayArticles() {
-      //move below to function that can also be called on button click
       if(this.filtered == undefined || this.filtered.type == null){
         this._articleService.getArticles()
           .subscribe(res => {
@@ -103,7 +102,6 @@ export class HomeComponent implements OnInit {
       var category: Category;
       this._categoryService.getCategoryInfo(articleObj.category)
             .subscribe(result => {
-              console.log(articleObj);
               category = result;
               document.getElementById(articleObj._id).style.borderLeft = "10px solid " + category.color;
               document.getElementById('artTitleLink' + articleObj._id).style.color = category.color;

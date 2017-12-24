@@ -59,6 +59,9 @@ router.get('/categories/all', function(req, res){
 			if (err) {
 				console.log('Error getting the categories');
 			} else {
+				categories.sort(function(a,b){
+					return a.name.localeCompare(b.name);
+				});
 				res.json(categories);
 			}
 		});
@@ -107,6 +110,7 @@ router.post('/create', function (req, res) {
 	newArticle.title = req.body.title;
 	newArticle.content = req.body.content;
 	newArticle.author = req.body.author;
+	newArticle.category = req.body.category;
 
 	newArticle.save(function(err, article) {
 		if(err) {
@@ -148,6 +152,11 @@ router.patch('/articles/update/:id', function (req, res) {
 
 		if(post.content != updateObject.content){
 			post.content = updateObject.content;
+			altered = true;
+		}
+
+		if(post.category != updateObject.category){
+			post.category = updateObject.category;
 			altered = true;
 		}
 

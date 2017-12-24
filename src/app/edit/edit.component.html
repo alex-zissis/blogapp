@@ -20,6 +20,12 @@
             You must specify content that's at least 10 characters long
         </div>
 
+        <label>Select a Category
+            <select id="categorySelect" name="category" required [formControl]="articleFrm.controls['category']" formControlName="category">
+                <option *ngFor="let cat of categories" [value]="cat.name">{{cat.name}}</option>
+            </select>
+        </label>
+
         <input type="submit" class="cta-btn filled" value="Edit Article" [disabled]="!articleFrm.valid">
   
       </div>
