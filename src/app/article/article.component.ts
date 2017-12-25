@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../article.service';
 import { Article } from '../article';
+import { CategoryService } from '../category.service';
+import { Category } from '../category';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,11 +12,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ArticleComponent implements OnInit {
 
-  article: Array<Article>;
+  article: Article
+  ;
+  categoryA: Category;
 
   showSpinnerArticle: boolean = true;
 
-  constructor(private _articleService: ArticleService, private router: Router, private aR: ActivatedRoute) { }
+  constructor(private _articleService: ArticleService, private _categoryService: CategoryService, private router: Router, private aR: ActivatedRoute) { }
 
   ngOnInit() {
   	this.aR.params.subscribe((params) => {
@@ -22,10 +26,24 @@ export class ArticleComponent implements OnInit {
 
   		this._articleService.getArticle(id)
   			.subscribe(res => {
-          this.showSpinnerArticle = false;
           this.article = res;
+          console.log(this.article);
+          this.showSpinnerArticle = false;
+          this._categoryService.getCategoryInfo(this.article.category)
+            .subscribe(result => {
+              this.categoryA = result;
+              document.getElementById('artTitle').style.color = this.categoryA.color;
+              document.getElementById('artContainer').style.borderLeft = "10px solid " + this.categoryA.color;
+            });
         });
   	});
+  }
+
+  deleteArticle(id){
+    this._articleService.deleteArticle(id)
+      .subscribe(res => {
+        this.router.navigateByUrl('/');
+      });
   }
 
 }

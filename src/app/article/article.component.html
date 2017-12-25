@@ -1,15 +1,15 @@
 <app-loading-spinner *ngIf="showSpinnerArticle"></app-loading-spinner>
 
 <div *ngIf="article">
-	<div class="article-container">
+	<div class="article-container" id="artContainer">
 		<div class="expanded">
 			<div class="small-12 medium-12 columns">
-				<a routerLink="#">{{ article.title }}</a><br>
-				<p class="articleInfo">Author: <a routerLink="/show/articles/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : ' HH:mm' }})</i></p>
+				<a id="artTitle">{{ article.title }}</a><br>
+				<p class="articleInfo">Category: <a routerLink="/articles/category/{{ article.category }}">{{ article.category }}</a> | Author: <a routerLink="/articles/author/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : 'HH:mm' }})</i><span *ngIf="article.createdAt != article.updatedAt">  | Updated: {{ article.updatedAt| date : 'yyyy-MM-dd' }} <i>({{ article.updatedAt| date : 'HH:mm' }})</i></span></p>
+				<p class="description">{{ article.description }}</p>
 				<a routerLink="/edit/{{ article._id }}" class="btns">Edit Article</a><a (click)="deleteArticle(article._id)" class="btns">Delete Article</a>				
 				<div class="content" [froalaView]="article.content"></div>
 			</div>
-
 		</div>
 	</div>
 </div>

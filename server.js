@@ -10,6 +10,7 @@ const api = require('./server/routes/api');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api', api);

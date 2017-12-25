@@ -44,4 +44,11 @@ export class ArticleService {
     return this._http.patch('/api/articles/update/'+id, JSON.stringify(post), options)
       .map(result => this.result = result.json());
   }
+
+  deleteArticle(id){
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    return this._http.patch('/api/articles/delete/'+id, options)
+      .map(result => this.result = result.json());
+  }
 }
