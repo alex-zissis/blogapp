@@ -5,6 +5,7 @@ import { PasswordValidation } from '../validators/password-match.validator';
 import { PasswordValid } from '../validators/password.validator';
 import { EmailValidation } from '../validators/email.validator';
 import { FormCheck } from '../validators/form-check.validator';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   userFrm: FormGroup;
 
-  constructor(private fb : FormBuilder) { }
+  constructor(private fb : FormBuilder, private _authService : AuthService, private router: Router) { }
 
   ngOnInit() {
     this.userFrm = this.fb.group({
@@ -28,5 +29,12 @@ export class RegisterComponent implements OnInit {
     },{
       validator: [PasswordValidation.MatchPassword, EmailValidation.EmailValid, PasswordValid.ValidPassword, FormCheck.Checked]
     });
+  }
+
+  onSubmit(userFrmData) {
+    this._authService.register(userFrmData)
+      .subscribe(res => {
+        this.router.navigateByUrl('/');
+      });
   }
 }

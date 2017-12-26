@@ -12,8 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ArticleComponent implements OnInit {
 
-  article: Article
-  ;
+  article: Article;
   categoryA: Category;
 
   showSpinnerArticle: boolean = true;

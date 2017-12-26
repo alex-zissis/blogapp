@@ -1,7 +1,7 @@
 <div class="articlesList">
   <div class="article-container" id="regArtContainer">
     <h3>Register</h3>
-    <form [formGroup]="userFrm" (ngSubmit)="userFrm(userFrm.value)" *ngIf="userFrm">
+    <form [formGroup]="userFrm" (ngSubmit)="onSubmit(userFrm.value)" *ngIf="userFrm">
       <div class="row expanded regCont">
         <div class="small-12 columns">
           <label>Username

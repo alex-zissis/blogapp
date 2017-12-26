@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const article = require('../models/article');
 const category = require('../models/category');
+const user = require('../models/user');
+const verification = require('../models/verification');
+
 
 var errRes = {};
 
@@ -250,6 +255,40 @@ router.patch('/articles/delete/:id', function (req, res, next) {
 		  res.send(updPost);
 		});
 	});
+});
+
+
+/*-------------------------------------- USERS --------------------------------------*/
+
+
+router.post('/users/register', function(req, res) {
+	//create a new instance of user and set all the variables to the form values
+	var newUser = new user();
+	newUser.username = req.body.username;
+	newUser.email = req.body.email;
+	newUser.fname = req.body.fname;
+	newUser.lname = req.body.lname;
+	newUser.password = req.body.password;
+	newUser.verified = false;
+	
+	//hash and salt the password for storage
+	bcrypt.genSalt(10, function(err, salt) {
+    	bcrypt.hash(newUser.password, salt, function(err, hash) {
+			newUser.password = hash;
+			//save the user in the db
+			newUser.save(function(err, user) {
+				if(err) {
+					console.log(err);
+					errRes.message = "The user could not be created.";
+					return res.status(500).json(errRes);
+				} else {
+					res.json(user);
+				}
+			});
+    	});
+	});
+
+
 });
 
 module.exports = router;
