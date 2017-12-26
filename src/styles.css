@@ -29,6 +29,10 @@ body {
     color: #737373;
 }
 
+.article-container h3 {
+    padding-left: 5%;
+}
+
 .content {
     width: 50%;
     margin: 0 auto;
@@ -41,6 +45,10 @@ body {
     .articlesList {
         width: 100%;
     }
+
+    .form {
+        width: 100%;
+    }
 }
 
 @media only screen and (min-width: 600px) {
@@ -50,6 +58,10 @@ body {
 
     .articlesList {
         width: 100%;
+    }
+
+    .form {
+        width: 80%;
     }
 }
 
@@ -74,6 +86,10 @@ body {
         min-width: 900px;
         max-width: 100%;
     }
+
+    .form {
+        width: 60%;
+    }
 }
 
 @media only screen and (min-width: 1400px) {
@@ -93,3 +109,36 @@ body {
         width: 2100px;
     }
 }
+
+.alert {
+    font-size: .8em;
+    color: #e2623b;
+}
+
+input{
+    outline: none;
+    box-shadow: none !important;
+    border-top: transparent !important;
+    border-left: transparent !important;
+    border-right: transparent !important;
+    border-bottom: transparent !important;
+}
+
+input.ng-invalid {
+    border-bottom: 2px solid #e2623b !important;
+}
+
+input.ng-valid {
+    border-bottom: 2px solid #57e463 !important;
+}
+
+/*
+form.ng-valid {
+    border-left: 10px solid #57e463;
+}
+
+form.ng-invalid {
+    border-left: 10px solid #e2623b;
+}
+*/
+

@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ArticleComponent } from './article/article.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,14 @@ const routes: Routes = [
 	{
 		path: 'edit/:id',
 		component: EditComponent
+	},
+	{
+		path: 'register',
+		component: RegisterComponent
+	},
+	{
+		path: '**',
+		redirectTo:'/'
 	}
 ];
 

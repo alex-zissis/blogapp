@@ -27,7 +27,7 @@ export class CreateComponent implements OnInit {
       .subscribe(res=> this.articles = res);
 
     this.articleFrm = this.fb.group({
-      'title' : [null, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(45)])],
+      'title' : [null, Validators.compose([Validators.required, Validators.minLength(10)])],
       'content' : [null, Validators.compose([Validators.required, Validators.minLength(10)])],
       'author' : [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(45)])],
       'category': [null, Validators.compose([Validators.required, Validators.minLength(2)])]

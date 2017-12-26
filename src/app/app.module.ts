@@ -16,6 +16,7 @@ import { ArticleComponent } from './article/article.component';
 import { CreateComponent } from './create/create.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { EditComponent } from './edit/edit.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EditComponent } from './edit/edit.component';
     ArticleComponent,
     CreateComponent,
     LoadingSpinnerComponent,
-    EditComponent
+    EditComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
