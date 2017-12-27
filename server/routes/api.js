@@ -3,9 +3,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');  
+const Strategy = require('passport-local');
+const expressJwt = require('express-jwt');  
+const authenticate = expressJwt({secret : 'test'});
+
 const article = require('../models/article');
 const category = require('../models/category');
-const user = require('../models/user');
+const User = require('../models/user');
 const verification = require('../models/verification');
 
 
@@ -17,6 +22,34 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect(db, {useMongoClient: true})
 	.catch(err => console.error(err));
+	
+passport.use(new Strategy(  
+	function(username, password, done) {
+		User.findOne({username: username}, function (err, user) {
+			if(err) {return done(err);}
+
+			if(!user){
+				return done(null, false, {message: 'Incorrect username.'});
+			}
+
+			User.comparePassword(password, user.password, function (err,isMatch) {
+				if(err) {return done(err)};
+				if(isMatch){
+					return done(null, user);
+				}else{
+					return done(null, false, {message: "Invalid password"});
+				}
+			});
+		});
+	}
+));
+
+
+router.use(function (err, req, res, next) {
+	if (err.name === 'UnauthorizedError') {
+		res.status(401).send('invalid token...');
+	}
+});
 
 //get all articles
 router.get('/all', function(req, res){
@@ -140,7 +173,7 @@ router.get('/articles/:id', function(req, res){
 });
 
 //create article
-router.post('/create', function (req, res) {
+router.post('/create', authenticate, function (req, res) {
 	//assign the new article from the request into the correct class
 	var newArticle = new article();
 	newArticle.title = req.body.title;
@@ -161,7 +194,7 @@ router.post('/create', function (req, res) {
 });
 
 //create category
-router.post('/categories', function (req, res) {
+router.post('/categories', authenticate, function (req, res) {
 	//see create article
 	var newCategory = new category();
 	newCategory.name = req.body.name;
@@ -178,7 +211,7 @@ router.post('/categories', function (req, res) {
 });
 
 //update article
-router.patch('/articles/update/:id', function (req, res) {
+router.patch('/articles/update/:id', authenticate, function (req, res) {
     var updateObject = req.body; // get the object passed by the request
     var id = req.params.id;
 
@@ -228,7 +261,7 @@ router.patch('/articles/update/:id', function (req, res) {
 });
 
 //delete article
-router.patch('/articles/delete/:id', function (req, res, next) {
+router.patch('/articles/delete/:id', authenticate, function (req, res, next) {
 	var id = req.params.id;
 
 	//find the article in the db
@@ -263,7 +296,7 @@ router.patch('/articles/delete/:id', function (req, res, next) {
 
 router.post('/users/register', function(req, res) {
 	//create a new instance of user and set all the variables to the form values
-	var newUser = new user();
+	var newUser = new User();
 	newUser.username = req.body.username;
 	newUser.email = req.body.email;
 	newUser.fname = req.body.fname;
@@ -287,8 +320,58 @@ router.post('/users/register', function(req, res) {
 			});
     	});
 	});
-
-
 });
+
+router.post('/users/auth', passport.authenticate(  
+	'local', {
+	  session: false
+}), serialize, generateToken, respond);
+
+router.get('/users/me', authenticate, function(req,res){
+	User.findOne({username : req.user.username})
+		.exec(function(err,user){
+			if(err || !user) {
+				errRes.message = "Authentication error";
+				return res.status(401).json(errRes);
+			}
+
+			var returnedUsr = {
+				username: user.username,
+				fname: user.fname,
+				lname: user.lname,
+				email: user.email,
+				verified: user.verified
+			}
+			return res.status(200).json(returnedUsr);
+		})
+});
+
+function serialize(req, res, next) {  
+	User.findOne({ username : req.user.username })
+	.exec(function(err, usr) {
+		if(err) {return next(err);}
+		
+		req.user = {
+			username: usr.username
+		  };
+		next();
+	});
+}
+
+function generateToken(req, res, next) {  
+	req.token = jwt.sign({
+	  username: req.user.username,
+	}, 'test', {
+	  expiresIn: '1h'
+	});
+	next();
+}
+
+function respond(req, res) {  
+	res.status(200).json({
+	  username: req.user.username,
+	  token: req.token
+	});
+}
 
 module.exports = router;

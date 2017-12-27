@@ -18,6 +18,8 @@ import { CreateComponent } from './create/create.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { EditComponent } from './edit/edit.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { RegisterComponent } from './register/register.component';
     CreateComponent,
     LoadingSpinnerComponent,
     EditComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

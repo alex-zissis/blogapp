@@ -1,0 +1,16 @@
+
+    <div class="login-container">
+      <div class="loginform">
+        <h3>Login</h3>
+        <form [formGroup]="loginFrm" (ngSubmit)="onSubmit(loginFrm.value)" *ngIf="loginFrm">
+          <label>Username
+            <input type="text" name="username" placeholder="username" required [formControl]="loginFrm.controls['username']" formControlName="username">
+          </label>
+          <label>Password
+              <input type="password" name="password" placeholder="password" required [formControl]="loginFrm.controls['password']" formControlName="password">
+          </label>
+
+          <input type="submit" class="cta-btn filled" value="Submit" [disabled]="!loginFrm.valid">
+        </form>
+      </div>
+    </div>

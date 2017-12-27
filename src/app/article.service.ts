@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Article } from './article';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class ArticleService {
 
   result:any;
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http, private _authService : AuthService) { }
 
   getArticles() {
 	  return this._http.get("/api/all")
@@ -31,7 +32,9 @@ export class ArticleService {
   }
 
   insertArticle(post: Article) {
-    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', `Bearer ${this._authService.getToken()}`);
     let options = new RequestOptions({ headers: headers });
 
     return this._http.post('/api/create', JSON.stringify(post), options)

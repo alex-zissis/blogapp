@@ -25,3 +25,7 @@
 #catFilterBtnAll {
     border: 2px solid #4C89B2;
 }
+
+.articlesList, .user-info {
+    display: inline-block;
+}
