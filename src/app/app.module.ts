@@ -20,6 +20,7 @@ import { EditComponent } from './edit/edit.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
     EditComponent,
     RegisterComponent,
     LoginComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

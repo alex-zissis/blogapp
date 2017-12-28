@@ -7,6 +7,7 @@ const passport = require('passport');
 const Strategy = require('passport-local');
 const expressJwt = require('express-jwt');  
 const authenticate = expressJwt({secret : 'test'});
+var app = require('../../server');
 
 const article = require('../models/article');
 const category = require('../models/category');
@@ -45,11 +46,13 @@ passport.use(new Strategy(
 ));
 
 
-router.use(function (err, req, res, next) {
+app.use(function (err, req, res, next) {
 	if (err.name === 'UnauthorizedError') {
 		res.status(401).send('invalid token...');
 	}
 });
+
+
 
 //get all articles
 router.get('/all', function(req, res){

@@ -38,8 +38,20 @@ export class CreateComponent implements OnInit {
     console.log(article);
     this._articleService.insertArticle(article)
       .subscribe(newArticle => {
+        console.log("yay");
         this.articles.push(newArticle);
         this.router.navigateByUrl('/');
-      });
+      },err => {
+        if(err.status == 401){
+          var errObj = {
+            type: "error",
+            message: "Unauthorised to post a new article, please login.",
+            statusCode: 401
+          }
+          //this.errorComponent.display(errObj);
+          this.router.navigateByUrl('/login');
+        }
+      }
+    );
   }
 }
