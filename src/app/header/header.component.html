@@ -1,3 +1,14 @@
-<h1 class="title"><a routerLink="/">alex zissis - blog</a></h1>
-<h4 class="subtitle">return to <a href="http://www.alexzissis.tech">www.alexzissis.tech</a></h4><br>
+<div class="navbar-master">
+    <div class="left-nav nav">
+        <a routerLink="/" class="header-btn">Home</a>
+         <a class="header-btn">Portfolio</a>
+         <a class="header-btn">About/Contact</a>
+    </div>
+    <div class="right-nav nav">
+        <a routerLink="/register" class="header-btn" *ngIf="!(isLoggedIn | async)">Register</a>
+         <a routerLink="/login" class="header-btn" *ngIf="!(isLoggedIn | async)">Login</a> 
+         <a routerLink="/account" class="header-btn" *ngIf="(isLoggedIn | async)">My Account</a> 
+         <a (click)="logout()" class="header-btn" *ngIf="(isLoggedIn | async)">Logout</a>
+        </div>
+</div>
 

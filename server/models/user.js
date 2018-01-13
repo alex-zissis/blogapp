@@ -25,6 +25,9 @@ const userSchema = new Schema({
 		type: String,
 		required: true
 	},
+	author: {
+		type: Boolean
+	},
 	verified: {
 		type: Boolean,
 		required: true

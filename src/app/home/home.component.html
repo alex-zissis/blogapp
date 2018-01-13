@@ -1,15 +1,19 @@
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
-
-<div class="filtersContainer" class="articlesList">
-	<div class="catheading"><h4>Categories:</h4></div><div class="filters"><a id="catFilterBtnAll" routerLink="/" class="filterButtons">All</a></div><div *ngFor="let category of categories" class="filters"><a id="catFilterBtn{{category.name}}" routerLink="/articles/category/{{ category.name }}" class="filterButtons">{{ category.name }}</a></div>
-</div>
-<div>
 	
 <app-user-info>
 
 </app-user-info>
+<br><br>
 
-<div *ngFor="let article of articles" class="articlesList">
+<div class="articlesList">
+	<h2>Articles</h2>
+</div>
+
+<div class="filtersContainer" class="articlesList">
+	<div class="catheading"><h4>Categories:</h4></div><div class="filters"><a id="catFilterBtnAll" routerLink="/" class="filterButtons">All</a></div><div *ngFor="let category of categories" class="filters"><a id="catFilterBtn{{category.name}}" routerLink="/articles/category/{{ category.name }}" class="filterButtons">{{ category.name }}</a></div>
+</div>
+
+<div *ngFor="let article of articles" class="articlesList" id="article-display">
 	<div class="article-container" [id]="article._id">
 		<div class="small-12 medium-12 medium-offset-1 columns" >
 			<a id="artTitleLink{{article._id}}" routerLink="/articles/{{ article._id }}">{{ article.title }}</a>
@@ -20,4 +24,3 @@
 		</div>
 	</div>
 </div>
-

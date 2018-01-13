@@ -5,17 +5,15 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');  
 const Strategy = require('passport-local');
-const expressJwt = require('express-jwt');  
-const authenticate = expressJwt({secret : 'test'});
-var app = require('../../server');
-
+const server = require('../../server');
+const authenticate = server.authenticate;
 const article = require('../models/article');
 const category = require('../models/category');
 const User = require('../models/user');
 const verification = require('../models/verification');
 
 
-var errRes = {};
+let errRes = {};
 
 const db = "mongodb://articles-admin:qb4u.2d8@localhost:27017/blogapp";
 
@@ -44,15 +42,6 @@ passport.use(new Strategy(
 		});
 	}
 ));
-
-
-app.use(function (err, req, res, next) {
-	if (err.name === 'UnauthorizedError') {
-		res.status(401).send('invalid token...');
-	}
-});
-
-
 
 //get all articles
 router.get('/all', function(req, res){
@@ -178,22 +167,31 @@ router.get('/articles/:id', function(req, res){
 //create article
 router.post('/create', authenticate, function (req, res) {
 	//assign the new article from the request into the correct class
-	var newArticle = new article();
-	newArticle.title = req.body.title;
-	newArticle.content = req.body.content;
-	newArticle.author = req.body.author;
-	newArticle.category = req.body.category;
-	newArticle.deleted = false;
+	User.findOne({ username : req.user.username })
+		.exec(function(err, usr) {
+			if(!usr.author){
+				errRes.type = "notauthor"
+				errRes.message = "You are not authorised to create new articles.";
+				return res.status(401).json(errRes);
+			}else {
+				let newArticle = new article();
+				newArticle.title = req.body.title;
+				newArticle.content = req.body.content;
+				newArticle.author = req.body.author;
+				newArticle.category = req.body.category;
+				newArticle.deleted = false;
 
-	//save the new object to the db
-	newArticle.save(function(err, article) {
-		if(err) {
-			errRes.message = "The article could not be created.";
-			return res.status(500).json(errRes);
-		} else {
-			res.json(article);
-		}
-	});
+				//save the new object to the db
+				newArticle.save(function(err, article) {
+					if(err) {
+						errRes.message = "The article could not be created.";
+						return res.status(500).json(errRes);
+					} else {
+						res.json(article);
+					}
+				});
+			}
+		});
 });
 
 //create category
@@ -300,12 +298,13 @@ router.patch('/articles/delete/:id', authenticate, function (req, res, next) {
 router.post('/users/register', function(req, res) {
 	//create a new instance of user and set all the variables to the form values
 	var newUser = new User();
-	newUser.username = req.body.username;
+	newUser.username = req.body.username.toLowerCase();
 	newUser.email = req.body.email;
 	newUser.fname = req.body.fname;
 	newUser.lname = req.body.lname;
 	newUser.password = req.body.password;
 	newUser.verified = false;
+	newUser.author = false;
 	
 	//hash and salt the password for storage
 	bcrypt.genSalt(10, function(err, salt) {
@@ -314,7 +313,6 @@ router.post('/users/register', function(req, res) {
 			//save the user in the db
 			newUser.save(function(err, user) {
 				if(err) {
-					console.log(err);
 					errRes.message = "The user could not be created.";
 					return res.status(500).json(errRes);
 				} else {
@@ -330,11 +328,26 @@ router.post('/users/auth', passport.authenticate(
 	  session: false
 }), serialize, generateToken, respond);
 
+router.get('/users/check', authenticate, function(req,res){
+	return res.status(200).send(true);
+});
+
 router.get('/users/me', authenticate, function(req,res){
-	User.findOne({username : req.user.username})
-		.exec(function(err,user){
+	let jwttoken = readToken(req);
+	if(jwttoken == null){
+		errRes.type = "nojwt"
+		errRes.message = "You are not logged in.";
+		return res.status(401).json(errRes);
+	} else {
+		var decoded = jwt.verify(jwttoken, 'test');
+	}
+
+	if(decoded.username == req.user.username){
+		User.findOne({username : req.user.username})
+			.exec(function(err,user){
 			if(err || !user) {
-				errRes.message = "Authentication error";
+				errRes.type = "autherror"
+				errRes.message = "Authentication error.";
 				return res.status(401).json(errRes);
 			}
 
@@ -343,10 +356,16 @@ router.get('/users/me', authenticate, function(req,res){
 				fname: user.fname,
 				lname: user.lname,
 				email: user.email,
-				verified: user.verified
+				verified: user.verified,
+				author: user.author
 			}
 			return res.status(200).json(returnedUsr);
-		})
+		});
+	} else {
+		errRes.type = "wrongtoken"
+		errRes.message = "Incorrect authentication detials, please login again.";
+		return res.status(401).json(errRes);
+	}
 });
 
 function serialize(req, res, next) {  
@@ -355,7 +374,8 @@ function serialize(req, res, next) {
 		if(err) {return next(err);}
 		
 		req.user = {
-			username: usr.username
+			username: usr.username,
+			author: usr.author
 		  };
 		next();
 	});
@@ -375,6 +395,15 @@ function respond(req, res) {
 	  username: req.user.username,
 	  token: req.token
 	});
+}
+
+function readToken(req){
+	if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+        return req.headers.authorization.split(' ')[1];
+    } else if (req.query && req.query.token) {
+      return req.query.token;
+    }
+    return null;
 }
 
 module.exports = router;

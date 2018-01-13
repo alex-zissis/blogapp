@@ -1,13 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    background-color:#F1F1F1;
-    padding: 4em 0;
-    font-family: 'Raleway';
+    background-color:#f1f1f1;
+    font-family: 'Raleway', serif;
     min-width: 300px;
 }
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+  }
+  
 .article-container {
     background:#fff;
-    /*border-left: 10px solid #093F68;*/
     padding: 2em 0;
     margin-bottom: 1rem;
 }
@@ -49,8 +54,34 @@ body {
 	display: inline-block;
 }
 
+#container {
+    padding: 1em 0;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+#inner-container {
+    padding: 1px 10px 10px 10px;
+    margin-top: 10px;
+}
+
+.navbar-master {
+    font-size: 1em;
+    color: #000;
+    background-color: #fff;
+    height: 4.5em;
+    padding: 1.5em 10em 1.5em 10em;
+    border-bottom: 1px solid #0099FF;
+}
+
+
 
 @media only screen and (max-width: 599px) {
+    #container{
+        width: 100%;
+    }
+    
     .content {
         width: 100%;
     }
@@ -66,15 +97,11 @@ body {
     .login-container {
         width: 100%;
     }
-
-    .user-info {
-        width: 100%;
-        height: 100px;
-    }
     
 }
 
 @media only screen and (min-width: 600px) {
+    
     .content {
         width: 100%;
     }
@@ -89,42 +116,44 @@ body {
 
     .user-info {
         width: 100%;
-        height: 100px;
-        max-width: 800px;
+        max-width: 900px;
     }
-
 
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 900px) {
     .content {
         width: 100%;
     }
 
     .articlesList {
         width: 100%;
-        max-width: 800px;
+        max-width: 900px;
     }
 
     .login-container {
          width: 100%;
-         max-width: 800px;
+         max-width: 900px;
     }
 }
 
 @media only screen and (min-width: 1080px) {
-    .content {
+    #container{
         width: 1080px;
+    }
+   
+    .content {
+        width: 100%;
     }
 
     .articlesList {
-        width: 50%;
-        min-width: 800px;
+        width: 80%;
+        min-width: 900px;
         max-width: 100%;
     }
 
     .form {
-        width: 60%;
+        width: 80%;
     }
 
     .login-container {
@@ -135,13 +164,19 @@ body {
         max-width: 100%;
     }
 
+    .left-nav {
+        float: left;
+        height: 100%;
+    }
 
-    .user-info {
-        width: 24%;
+    .right-nav {
         float: right;
-        margin-right: 10px;
-        height: 200px;
-        max-width: 100%;
+        height: 100%;
+    }
+    
+    .middle-nav {
+        display: inline-block;
+        text-align: center;
     }
 }
 
@@ -165,7 +200,7 @@ body {
 
 .alert {
     font-size: .8em;
-    color: #e2623b;
+    margin: 0 auto;
 }
 
 input{

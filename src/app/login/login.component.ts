@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 
     this._authService.login(payload)
       .subscribe(res => {
+        this._authService.isLoginSubject.next(true);
         this._authService.setToken(res.token);
         this.router.navigateByUrl('/');
       });

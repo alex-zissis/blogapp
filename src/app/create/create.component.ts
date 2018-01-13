@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../article.service';
+import { AuthService } from '../auth.service';
 import { CategoryService } from '../category.service';
+import { ErrorService } from '../error.service';
 import { Category } from '../category';
 import { Article } from '../article';
+import { User } from '../user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -16,10 +19,14 @@ export class CreateComponent implements OnInit {
   articleFrm: FormGroup;
   articles: Array<Article>;
   categories: Array<Category>;
+  user: User;
 
-  constructor(private _articleService: ArticleService, private _categoryService: CategoryService, private router: Router, private aR: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private _errorService: ErrorService, private _authService: AuthService, private _articleService: ArticleService, private _categoryService: CategoryService, private router: Router, private aR: ActivatedRoute, private fb: FormBuilder) { }
   
   ngOnInit() {
+    this._authService.getUserInfo()
+      .subscribe(res => this.user = res);
+
     this._categoryService.getCategories()
       .subscribe(res => this.categories = res);
 
@@ -29,29 +36,39 @@ export class CreateComponent implements OnInit {
     this.articleFrm = this.fb.group({
       'title' : [null, Validators.compose([Validators.required, Validators.minLength(10)])],
       'content' : [null, Validators.compose([Validators.required, Validators.minLength(10)])],
-      'author' : [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(45)])],
       'category': [null, Validators.compose([Validators.required, Validators.minLength(2)])]
     });
   }
 
-  addArticle(article: Article) {
-    console.log(article);
+  addArticle(article) {
+    article.author = this.user.username;
     this._articleService.insertArticle(article)
       .subscribe(newArticle => {
-        console.log("yay");
         this.articles.push(newArticle);
         this.router.navigateByUrl('/');
-      },err => {
+      }, 
+      err => {
+        console.log(err);
+        let response = JSON.parse(err._body);
         if(err.status == 401){
-          var errObj = {
+            let errObj = {
             type: "error",
-            message: "Unauthorised to post a new article, please login.",
+            cat: response.type,
+            message: response.message,
             statusCode: 401
           }
-          //this.errorComponent.display(errObj);
-          this.router.navigateByUrl('/login');
-        }
-      }
-    );
+          this.pushError(errObj);   
+          if(errObj.cat == "jwterror"){
+            this._authService.clearToken();
+            this.router.navigateByUrl('/login');
+          }else{
+            this.router.navigateByUrl('/');
+          }
+    }
+  });
+}
+
+  pushError(err){
+    this._errorService.showError(err);
   }
 }

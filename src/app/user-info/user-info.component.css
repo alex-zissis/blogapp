@@ -1,4 +1,7 @@
 .user-info {
-    background-color: white;
-    display: inline-block;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: .4em;
 }

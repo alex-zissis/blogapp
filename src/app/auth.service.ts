@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { ErrorService } from './error.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from "rxjs";
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
 
-  result:any;
-  storageKey: string = 'blogapp-jwt'
+  result: any;
+  storageKey: string = 'blogapp-jwt';
 
-  constructor(private _http: Http, private router: Router) { }
+  constructor(private _http: Http, private router: Router, private _errorService : ErrorService) { }
+
+  isLoginSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+
+  isLoggedInObvs() : Observable<boolean> {
+    return this.isLoginSubject.asObservable();
+   }
 
   register(user) {
     let headers = new Headers({ 'Content-Type': 'application/json'});
@@ -33,12 +41,34 @@ export class AuthService {
     return localStorage.getItem(this.storageKey);
   }
 
+  clearToken(){
+    return localStorage.removeItem(this.storageKey);
+  }
+
   isLoggedIn() {
     return this.getToken() !== null;
   }
 
   logout() {
-    localStorage.removeItem(this.storageKey);
-    this.router.navigateByUrl('/login');
+    this.clearToken();
+    let errObj = {
+      type : 'success',
+      message : 'Successfully logged out.',
+      statusCode : 200,
+    }
+    this.error(errObj);
+  }
+
+  getUserInfo() {
+    let headers = new Headers();
+    headers.append( 'Authorization', `Bearer ${this.getToken()}`);
+    let options = new RequestOptions({ headers: headers });
+    
+    return this._http.get('/api/users/me', options)
+      .map(result => this.result = result.json());
+    }
+
+  error(err) {
+    this._errorService.showError(err);
   }
 }

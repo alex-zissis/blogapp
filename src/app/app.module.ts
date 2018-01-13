@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ArticleService } from './article.service';
 import { CategoryService } from './category.service';
 import { AuthService } from './auth.service';
+import { ErrorService } from './error.service';
 import { ArticleComponent } from './article/article.component';
 import { CreateComponent } from './create/create.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
@@ -21,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { ErrorComponent } from './error/error.component';
+import { PageInfoComponent } from './page-info/page-info.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ErrorComponent } from './error/error.component';
     RegisterComponent,
     LoginComponent,
     UserInfoComponent,
-    ErrorComponent
+    ErrorComponent,
+    PageInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { ErrorComponent } from './error/error.component';
     FroalaEditorModule.forRoot(), 
     FroalaViewModule.forRoot()
   ],
-  providers: [ArticleService, CategoryService, AuthService],
+  providers: [ArticleService, CategoryService, AuthService, ErrorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

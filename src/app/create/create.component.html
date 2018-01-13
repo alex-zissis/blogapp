@@ -18,14 +18,6 @@
             You must specify content that's at least 10 characters long
         </div>
 
-        <label>Author
-            <input type="text" name="author" required [formControl]="articleFrm.controls['author']" formControlName="author">
-        </label>
-  
-        <div class="alert" *ngIf="!articleFrm.controls['author'].valid && articleFrm.controls['author'].touched">
-            You must specify an author that's at least 4 characters long
-        </div>
-
         <label>Select a Category
             <select id="categorySelect" name="category" required [formControl]="articleFrm.controls['category']" formControlName="category">
                 <option *ngFor="let cat of categories" [value]="cat.name">{{cat.name}}</option>

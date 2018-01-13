@@ -1,3 +1,5 @@
-<div id="error" *ngIf="isMessage">
-  {{ message }}
+<div id="error">
+  <div id="error-message" *ngIf="isMessage">
+    {{ errorObject.message }}
+  </div>
 </div>
