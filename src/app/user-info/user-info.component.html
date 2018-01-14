@@ -1,9 +1,15 @@
-<div class="user-info" *ngIf="(isLoggedIn | async)">
-		<h4>Welcome {{ user.fname }}</h4>
-		<div class="navbar">
-				<a routerLink="/create" class="add-btn" *ngIf="user.author">Add an article</a>
+<div *ngIf="isLoggedIn">
+		<div class="articlesList section-heading">
+				<span class="page-title">User</span>
 		</div>
-		<div class="navbar">
-				<a routerLink="/account" class="add-btn">My Account</a>
+		
+		<div class="user-info">
+				<span class="page-subtitle">Welcome {{ user.fname }}</span>
+				<div class="navbar">
+						<a routerLink="/create" class="add-btn" *ngIf="user.author">Add an article</a>
+				</div>
+				<div class="navbar">
+						<a routerLink="/account" class="add-btn">My Account</a>
+				</div>
 		</div>
-	</div>
+</div>

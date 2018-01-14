@@ -5,12 +5,14 @@
 </app-user-info>
 <br><br>
 
-<div class="articlesList">
-	<h2>Articles</h2>
+<div class="articlesList section-heading">
+	<span class="page-title">Articles</span>
 </div>
 
-<div class="filtersContainer" class="articlesList">
-	<div class="catheading"><h4>Categories:</h4></div><div class="filters"><a id="catFilterBtnAll" routerLink="/" class="filterButtons">All</a></div><div *ngFor="let category of categories" class="filters"><a id="catFilterBtn{{category.name}}" routerLink="/articles/category/{{ category.name }}" class="filterButtons">{{ category.name }}</a></div>
+<div class="filtersContainer articlesList">
+	<div class="catheading"><span class="page-subtitle">Categories:</span></div>
+	<div class="filters"><a id="catFilterBtnAll" routerLink="/" class="filterButtons">All</a></div>
+	<div *ngFor="let category of categories" class="filters"><a id="catFilterBtn{{category.name}}" routerLink="/articles/category/{{ category.name }}" class="filterButtons">{{ category.name }}</a></div>
 </div>
 
 <div *ngFor="let article of articles" class="articlesList" id="article-display">

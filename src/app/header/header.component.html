@@ -1,8 +1,11 @@
-<div class="navbar-master">
+<div class="navbar-master" id="header-nav" [ngClass]="{'sticky' : stickyBar}">
     <div class="left-nav nav">
         <a routerLink="/" class="header-btn">Home</a>
          <a class="header-btn">Portfolio</a>
          <a class="header-btn">About/Contact</a>
+    </div>
+    <div class="middle-nav nav">
+        <span class="title">Alex Zissis <span class="accent"> - </span>Blog</span>
     </div>
     <div class="right-nav nav">
         <a routerLink="/register" class="header-btn" *ngIf="!(isLoggedIn | async)">Register</a>

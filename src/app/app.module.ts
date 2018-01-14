@@ -22,7 +22,6 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { ErrorComponent } from './error/error.component';
-import { PageInfoComponent } from './page-info/page-info.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +35,8 @@ import { PageInfoComponent } from './page-info/page-info.component';
     RegisterComponent,
     LoginComponent,
     UserInfoComponent,
-    ErrorComponent,
-    PageInfoComponent
-  ],
+    ErrorComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,7 +45,7 @@ import { PageInfoComponent } from './page-info/page-info.component';
     ReactiveFormsModule,
     FroalaEditorModule.forRoot(), 
     FroalaViewModule.forRoot()
-  ],
+    ],
   providers: [ArticleService, CategoryService, AuthService, ErrorService],
   bootstrap: [AppComponent]
 })

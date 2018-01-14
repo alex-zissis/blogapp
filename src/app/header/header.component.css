@@ -1,5 +1,5 @@
 .header-btn {
-    background-color: #f1f1f1;
+    background-color: #fff;
     padding: 10px 5px 10px 5px;
     margin: 0 2.5px 0 2.5px;
     color: #000;
@@ -8,4 +8,14 @@
 
 .header-btn:hover {
     color: #0099FF; 
+}
+
+.middle-nav {
+    margin: 0 auto;
+    display: inline-block;
+    width: 40%;
+}
+
+.title {
+    font-size: 1.6em;
 }

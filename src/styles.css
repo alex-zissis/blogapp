@@ -6,11 +6,21 @@ body {
 }
 
 .sticky {
+    opacity: 0.7;
     position: fixed;
     top: 0;
-    width: 100%
-  }
-  
+    width: 100%;
+}
+
+.accent {
+    color: #0099FF;
+}
+
+.sticky:hover {
+    opacity: 1;
+    border-bottom: 4px solid #0099FF;
+}
+
 .article-container {
     background:#fff;
     padding: 2em 0;
@@ -19,7 +29,7 @@ body {
 
 .article-container a {
     text-transform: uppercase;
-    font-size: 2.5em;
+    font-size: 1.5em;
     font-weight: bold;
     line-height: 1em;
     color: #0099FF;
@@ -27,7 +37,7 @@ body {
 
 .articleInfo a {
     color: #737373;
-    font-size: .8em;
+    font-size: .7em;
 }
 
 .article-container p {
@@ -69,13 +79,26 @@ body {
 .navbar-master {
     font-size: 1em;
     color: #000;
-    background-color: #fff;
+    background-color: #f1f1f1;
     height: 4.5em;
     padding: 1.5em 10em 1.5em 10em;
-    border-bottom: 1px solid #0099FF;
+    border-bottom: 2px solid #0099FF;
+}
+
+.page-title {
+    font-size: 1.5em;
+}
+
+.page-subtitle {
+    font-size: 1.3em;
 }
 
 
+.section-heading {
+    padding-bottom: .5em;
+    border-bottom: 1px solid #0099FF;
+    margin: 0 auto;
+}
 
 @media only screen and (max-width: 599px) {
     #container{
@@ -171,6 +194,10 @@ body {
 
     .right-nav {
         float: right;
+        height: 100%;
+    }
+
+    .nav {
         height: 100%;
     }
     
