@@ -53,19 +53,21 @@ export class AuthService {
     this.clearToken();
     let errObj = {
       type : 'success',
+      name : 'logout',
       message : 'Successfully logged out.',
       statusCode : 200,
+      expires : false
     }
     this.error(errObj);
   }
 
   getUserInfo() {
-    let headers = new Headers();
-    headers.append( 'Authorization', `Bearer ${this.getToken()}`);
-    let options = new RequestOptions({ headers: headers });
-    
-    return this._http.get('/api/users/me', options)
-      .map(result => this.result = result.json());
+      let headers = new Headers();
+      headers.append( 'Authorization', `Bearer ${this.getToken()}`);
+      let options = new RequestOptions({ headers: headers });
+      
+      return this._http.get('/api/users/me', options)
+        .map(result => this.result = result.json());
     }
 
   error(err) {

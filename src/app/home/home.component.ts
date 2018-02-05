@@ -6,7 +6,7 @@ import { Article } from '../article';
 import { Category } from '../category';
 import { Filter } from '../filter';
 import { filterQueryId } from '@angular/core/src/view/util';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router'
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  deviceInfo = null;
   articles: Array<Article>;
   categories: Array<Category>;
   authorName: string;
@@ -23,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   showSpinner: boolean = true;
 
-  constructor(private _articleService: ArticleService, private _authService : AuthService, private _categoryService: CategoryService, private aR: ActivatedRoute) { }
+  constructor(private _articleService: ArticleService, private _authService : AuthService, private _categoryService: CategoryService, private aR: ActivatedRoute) {
+  }
 
     ngOnInit() {
       this.showSpinner = true;

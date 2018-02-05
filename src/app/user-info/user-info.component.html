@@ -1,9 +1,11 @@
-<div *ngIf="isLoggedIn">
+<div *ngIf="(isLoggedIn | async)">
 		<div class="articlesList section-heading">
 				<span class="page-title">User</span>
 		</div>
 		
-		<div class="user-info">
+		<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+		<div class="user-info" *ngIf="loading == false">
 				<span class="page-subtitle">Welcome {{ user.fname }}</span>
 				<div class="navbar">
 						<a routerLink="/create" class="add-btn" *ngIf="user.author">Add an article</a>

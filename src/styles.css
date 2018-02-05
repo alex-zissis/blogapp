@@ -83,6 +83,7 @@ body {
     height: 4.5em;
     padding: 1.5em 10em 1.5em 10em;
     border-bottom: 2px solid #0099FF;
+    text-align: center;
 }
 
 .page-title {

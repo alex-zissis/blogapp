@@ -22,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { ErrorComponent } from './error/error.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { ErrorComponent } from './error/error.component';
     FormsModule,
     ReactiveFormsModule,
     FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    DeviceDetectorModule.forRoot()
+
     ],
   providers: [ArticleService, CategoryService, AuthService, ErrorService],
   bootstrap: [AppComponent]

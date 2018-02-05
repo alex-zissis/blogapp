@@ -48,17 +48,16 @@ export class CreateComponent implements OnInit {
         this.router.navigateByUrl('/');
       }, 
       err => {
-        console.log(err);
         let response = JSON.parse(err._body);
         if(err.status == 401){
             let errObj = {
-            type: "error",
-            cat: response.type,
-            message: response.message,
-            statusCode: 401
+              type: "error",
+              name: response.type,
+              message: response.message,
+              statusCode: 401
           }
           this.pushError(errObj);   
-          if(errObj.cat == "jwterror"){
+          if(errObj.name == "jwterror"){
             this._authService.clearToken();
             this.router.navigateByUrl('/login');
           }else{

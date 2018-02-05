@@ -5,7 +5,9 @@ const http = require('http');
 const app = express();
 const passport = require('passport');
 const expressJwt = require('express-jwt');
-exports.authenticate = expressJwt({secret : 'test'});
+require('dotenv').config();
+const secret = process.env.JWT_SECRET;
+exports.authenticate = expressJwt({secret : secret});
 
 
 const api = require('./server/routes/api');

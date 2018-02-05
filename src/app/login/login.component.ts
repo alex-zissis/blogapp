@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { ErrorService } from '../error.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   loginFrm: FormGroup;
 
-  constructor(private fb : FormBuilder, private _authService : AuthService, private router: Router) { }
+  constructor(private deviceService: DeviceDetectorService, private fb : FormBuilder, private _authService : AuthService, private router: Router, private _errorService : ErrorService) { }
 
   ngOnInit() {
     this.loginFrm = this.fb.group({
@@ -23,10 +25,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginFrmData) {
     const values = loginFrmData;
+    const userAgent = this.deviceService.getDeviceInfo();
 
     const payload = {
       username : values.username,
-      password : values.password
+      password : values.password,
+      userAgent : userAgent
     }
 
     this._authService.login(payload)
@@ -34,6 +38,19 @@ export class LoginComponent implements OnInit {
         this._authService.isLoginSubject.next(true);
         this._authService.setToken(res.token);
         this.router.navigateByUrl('/');
+      }, err => {
+        let errObj = {
+          type: "error",
+          name: "badlogin",
+          message: "Incorrect username or password, please try again.",
+          statusCode: 401,
+          expires: true
+        }
+        this.pushError(errObj);
       });
+  }
+
+  pushError(err) {
+    this._errorService.showError(err);
   }
 }

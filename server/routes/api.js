@@ -11,11 +11,12 @@ const article = require('../models/article');
 const category = require('../models/category');
 const User = require('../models/user');
 const verification = require('../models/verification');
-
+require('dotenv').config()
 
 let errRes = {};
 
-const db = "mongodb://articles-admin:qb4u.2d8@localhost:27017/blogapp";
+const db = process.env.DBPATH;
+const secret = process.env.JWT_SECRET;
 
 mongoose.Promise = global.Promise;
 
@@ -339,7 +340,7 @@ router.get('/users/me', authenticate, function(req,res){
 		errRes.message = "You are not logged in.";
 		return res.status(401).json(errRes);
 	} else {
-		var decoded = jwt.verify(jwttoken, 'test');
+		var decoded = jwt.verify(jwttoken, secret);
 	}
 
 	if(decoded.username == req.user.username){
@@ -384,7 +385,7 @@ function serialize(req, res, next) {
 function generateToken(req, res, next) {  
 	req.token = jwt.sign({
 	  username: req.user.username,
-	}, 'test', {
+	}, secret , {
 	  expiresIn: '1h'
 	});
 	next();
