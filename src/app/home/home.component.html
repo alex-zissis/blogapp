@@ -1,5 +1,5 @@
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
-	
+
 <app-user-info></app-user-info>
 
 <div class="articlesList section-heading">
@@ -15,10 +15,10 @@
 <div *ngFor="let article of articles" class="articlesList" id="article-display">
 	<div class="article-container" [id]="article._id">
 		<div class="small-12 medium-12 medium-offset-1 columns" >
-			<a id="artTitleLink{{article._id}}" routerLink="/articles/{{ article._id }}">{{ article.title }}</a>
+			<a id="artTitleLink{{article._id}}" routerLink="/articles/{{ article._id }}" class="article-title-home">{{ article.title }}</a>
 		</div>
 		<div class="small-12 medium-12 columns">
-			<p class="articleInfo">Category: <a routerLink="/articles/category/{{ article.category }}">{{ article.category }}</a> | Author: <a routerLink="/articles/author/{{ article.author }}">{{ article.author }}</a> | Published: {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : 'HH:mm' }})</i><span *ngIf="article.createdAt != article.updatedAt">  | Updated: {{ article.updatedAt| date : 'yyyy-MM-dd' }} <i>({{ article.updatedAt| date : 'HH:mm' }})</i></span></p>
+			<p class="articleInfo home-article-info">Category: <a routerLink="/articles/category/{{ article.category }}">{{ article.category }}</a> | Author: <a routerLink="/articles/author/{{ article.author }}">{{ article.author }}</a> | Published: <span class="article-home-info-dt"> {{ article.createdAt| date : 'yyyy-MM-dd' }} <i>({{ article.createdAt| date : 'HH:mm' }})</i></span><span *ngIf="article.createdAt != article.updatedAt">  | Updated:<span class="article-home-info-dt">{{ article.updatedAt| date : 'yyyy-MM-dd' }} <i>({{ article.updatedAt| date : 'HH:mm' }})</i></span></span></p>
 			<p class="description">{{ article.description }}</p>
 		</div>
 	</div>

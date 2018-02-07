@@ -16,6 +16,22 @@ body {
     color: #0099FF;
 }
 
+.general-btn {
+  padding: .5em;
+  background-color: #f1f1f1;
+  color: #0099FF;
+}
+
+.general-btn:disabled {
+  color: #e2623b;
+}
+
+.general-btn:hover:enabled {
+  background-color: #0099FF;
+  color: #f1f1f1;
+  cursor: pointer;
+}
+
 .sticky:hover {
     opacity: 1;
     border-bottom: 4px solid #0099FF;
@@ -25,19 +41,6 @@ body {
     background:#fff;
     padding: 2em 0;
     margin-bottom: 1rem;
-}
-
-.article-container a {
-    text-transform: uppercase;
-    font-size: 1.5em;
-    font-weight: bold;
-    line-height: 1em;
-    color: #0099FF;
-}
-
-.articleInfo a {
-    color: #737373;
-    font-size: .7em;
 }
 
 .article-container p {
@@ -58,8 +61,6 @@ body {
 }
 
 .add-btn {
-	background-color: #d2d2d2;
-	padding: 3.5px 6px;
 	margin: 10px 0 10px 10px;
 	display: inline-block;
 }
@@ -105,7 +106,7 @@ body {
     #container{
         width: 100%;
     }
-    
+
     .content {
         width: 100%;
     }
@@ -121,11 +122,11 @@ body {
     .login-container {
         width: 100%;
     }
-    
+
 }
 
 @media only screen and (min-width: 600px) {
-    
+
     .content {
         width: 100%;
     }
@@ -165,7 +166,7 @@ body {
     #container{
         width: 1080px;
     }
-   
+
     .content {
         width: 100%;
     }
@@ -201,7 +202,7 @@ body {
     .nav {
         height: 100%;
     }
-    
+
     .middle-nav {
         display: inline-block;
         text-align: center;

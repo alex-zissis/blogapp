@@ -1,16 +1,24 @@
 p {
-    margin-top: 3em;
+    margin-top: 1.5em;
 }
 
-.btns {
+.article-btn {
     font-size: 1em;
-    background: #c2d9e8;
-    color: #56758b;
-    padding: 7px 12px;
     display: inline-block;
-	margin: 20px 0 20px 20px;
+	  margin: 0 0 20px 20px;
 }
 
-.article-container {
-    border-left: 10px solid #583668;
+.article-info {
+  text-transform: lowercase;
+  font-size: .9em;
+  line-height: 1em;
+  color: #0099FF;
+}
+
+#artTitle {
+  font-size: 2em;
+}
+
+.section-heading {
+  margin-bottom: 1.5em;
 }

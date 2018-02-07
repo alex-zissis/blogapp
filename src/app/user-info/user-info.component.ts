@@ -17,7 +17,7 @@ export class UserInfoComponent implements OnInit {
   user: any;
   loading = true;
 
-  constructor(private _authService : AuthService, private _errorService : ErrorService, private router : Router) { 
+  constructor(private _authService : AuthService, private _errorService : ErrorService, private router : Router) {
     this.isLoggedIn = _authService.isLoggedInObvs();
     this.hasToken = _authService.isLoggedIn();
   }

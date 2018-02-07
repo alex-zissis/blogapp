@@ -1,7 +1,7 @@
 <div class="articlesList section-heading">
 	<span class="page-title">Login</span>
 </div>
-    
+
 <div class="login-container articlesList">
   <div class="loginform">
     <form [formGroup]="loginFrm" (ngSubmit)="onSubmit(loginFrm.value)" *ngIf="loginFrm">
@@ -12,7 +12,7 @@
           <input type="password" name="password" placeholder="password" required [formControl]="loginFrm.controls['password']" formControlName="password">
       </label>
 
-      <input type="submit" class="cta-btn filled" value="Submit" [disabled]="!loginFrm.valid">
+      <input type="submit" class="general-btn" value="Submit" [disabled]="!loginFrm.valid">
     </form>
   </div>
 </div>

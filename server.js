@@ -16,7 +16,7 @@ const api = require('./server/routes/api');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
-app.use(expressJwt({ secret: 'test',   credentialsRequired: false}));
+app.use(expressJwt({ secret: secret,   credentialsRequired: false}));
 app.use(function (err, req, res, next) {
 	let errRes = {};
 	if (err.code === 'invalid_token') {
@@ -29,7 +29,7 @@ app.use(function (err, req, res, next) {
 		return res.status(401).json(errRes);
 	}
   });
-  
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api', api);

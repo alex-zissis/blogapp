@@ -35,7 +35,7 @@ export class ArticleService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', `Bearer ${this._authService.getToken()}`);
-    let options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers });
 
     return this._http.post('/api/create', JSON.stringify(post), options)
       .map(result => this.result = result.json());
@@ -43,15 +43,21 @@ export class ArticleService {
 
   updateArticle(id, post){
     let headers = new Headers({ 'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
-    return this._http.patch('/api/articles/update/'+id, JSON.stringify(post), options)
+    headers.append('Authorization', `Bearer ${this._authService.getToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    return this._http.patch('/api/articles/update/'+ id, JSON.stringify(post), options)
       .map(result => this.result = result.json());
   }
 
-  deleteArticle(id){
-    let headers = new Headers({ 'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
-    return this._http.patch('/api/articles/delete/'+id, options)
+  deleteArticle(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', `Bearer ${this._authService.getToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    const payload = {
+      id: id
+    };
+    return this._http.patch('/api/articles/delete/' + id, JSON.stringify(payload), options)
       .map(result => this.result = result.json());
   }
 }

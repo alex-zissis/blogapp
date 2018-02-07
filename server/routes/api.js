@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');  
+const passport = require('passport');
 const Strategy = require('passport-local');
 const server = require('../../server');
 const authenticate = server.authenticate;
@@ -22,8 +22,8 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect(db, {useMongoClient: true})
 	.catch(err => console.error(err));
-	
-passport.use(new Strategy(  
+
+passport.use(new Strategy(
 	function(username, password, done) {
 		User.findOne({username: username}, function (err, user) {
 			if(err) {return done(err);}
@@ -124,7 +124,7 @@ router.get('/categories/all', function(req, res){
 //get individual category
 router.get('/categories/info/:name', function(req, res){
 	var categoryP = req.params.name;
-	
+
 	//find the category passed
 	category.findOne({ name: categoryP})
 		.exec(function(err, category) {
@@ -221,13 +221,13 @@ router.patch('/articles/update/:id', authenticate, function (req, res) {
 		if (err) {
 			errRes.message = "The article '" + id + "' could not be updated.";
 			return res.status(500).json(errRes);
-		} 
+		}
 
 		if(post.deleted){ //if the post has been deleted return a 404
 			errRes.message = "The selected post is no longer available.";
 			return res.status(404).json(errRes);
 		}
-		
+
 		var altered = false;
 
 		//find which attributes have been changed
@@ -255,7 +255,7 @@ router.patch('/articles/update/:id', authenticate, function (req, res) {
 		post.save(function (err, updPost) {
 		  if (err) {
 			errRes.message = "The article '" + id + "' could not be updated.";
-			return res.status(500).json(errRes);  
+			return res.status(500).json(errRes);
 		  }
 		  res.send(updPost);
 		});
@@ -271,7 +271,7 @@ router.patch('/articles/delete/:id', authenticate, function (req, res, next) {
 		if (err) {
 			errRes.message = "The article '" + id + "' could not be deleted.";
 			return res.status(500).json(errRes);
-		} 
+		}
 		//if its already deleted throw a 404
 		if(post.deleted){
 			errRes.message = "The selected post is no longer available.";
@@ -286,7 +286,7 @@ router.patch('/articles/delete/:id', authenticate, function (req, res, next) {
 		  if (err) {
 			errRes.message = "The article '" + id + "' could not be deleted.";
 			return res.status(500).json(errRes);
-		  } 
+		  }
 		  res.send(updPost);
 		});
 	});
@@ -306,7 +306,7 @@ router.post('/users/register', function(req, res) {
 	newUser.password = req.body.password;
 	newUser.verified = false;
 	newUser.author = false;
-	
+
 	//hash and salt the password for storage
 	bcrypt.genSalt(10, function(err, salt) {
     	bcrypt.hash(newUser.password, salt, function(err, hash) {
@@ -324,7 +324,7 @@ router.post('/users/register', function(req, res) {
 	});
 });
 
-router.post('/users/auth', passport.authenticate(  
+router.post('/users/auth', passport.authenticate(
 	'local', {
 	  session: false
 }), serialize, generateToken, respond);
@@ -369,11 +369,11 @@ router.get('/users/me', authenticate, function(req,res){
 	}
 });
 
-function serialize(req, res, next) {  
+function serialize(req, res, next) {
 	User.findOne({ username : req.user.username })
 	.exec(function(err, usr) {
 		if(err) {return next(err);}
-		
+
 		req.user = {
 			username: usr.username,
 			author: usr.author
@@ -382,7 +382,7 @@ function serialize(req, res, next) {
 	});
 }
 
-function generateToken(req, res, next) {  
+function generateToken(req, res, next) {
 	req.token = jwt.sign({
 	  username: req.user.username,
 	}, secret , {
@@ -391,7 +391,7 @@ function generateToken(req, res, next) {
 	next();
 }
 
-function respond(req, res) {  
+function respond(req, res) {
 	res.status(200).json({
 	  username: req.user.username,
 	  token: req.token

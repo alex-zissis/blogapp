@@ -14,6 +14,20 @@
 	display: inline-block;
 }
 
+
+.article-title-home {
+  text-transform: uppercase;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1em;
+  color: #0099FF;
+}
+
+.home-article-info a, .article-home-info-dt {
+  color: #0099FF;
+  text-transform: lowercase;
+}
+
 .filterButtons:hover {
     background-color: #fff;
 }

@@ -4,11 +4,11 @@
          <a class="header-btn">Portfolio</a>
          <a class="header-btn">About/Contact</a>
     </div>
-    <span class="title">Alex Zissis <span class="accent"> - </span>Blog</span>
+    <span class="title"><!--Alex Zissis <span class="accent"> - </span>Blog<!--></span>
     <div class="right-nav nav">
         <a routerLink="/register" class="header-btn" *ngIf="!(isLoggedIn | async)">Register</a>
-         <a routerLink="/login" class="header-btn" *ngIf="!(isLoggedIn | async)">Login</a> 
-         <a routerLink="/account" class="header-btn" *ngIf="(isLoggedIn | async)">My Account</a> 
+         <a routerLink="/login" class="header-btn" *ngIf="!(isLoggedIn | async)">Login</a>
+         <a routerLink="/account" class="header-btn" *ngIf="(isLoggedIn | async)">My Account</a>
          <a (click)="logout()" class="header-btn" *ngIf="(isLoggedIn | async)">Logout</a>
         </div>
 </div>
