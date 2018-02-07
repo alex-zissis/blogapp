@@ -1,0 +1,61 @@
+<div class="articlesList">
+  <div class="article-container" id="regArtContainer">
+    <h3>Register</h3>
+    <form [formGroup]="userFrm" (ngSubmit)="onSubmit(userFrm.value)" *ngIf="userFrm">
+      <div class="row expanded regCont">
+        <div class="small-12 columns">
+          <label>Username
+            <input style="width: 25%" placeholder="username" type="text" name="username" required [formControl]="userFrm.controls['username']" formControlName="username">
+          </label>
+
+          <div class="alert" *ngIf="!userFrm.controls['username'].valid && userFrm.controls['username'].touched">
+            You must specify a username that's between 4 and 15 characters long
+          </div>
+
+          <label>Email
+              <input style="width: 60%" placeholder="email" name="email" type="email" required [formControl]="userFrm.controls['email']" formControlName="email">
+          </label>
+
+          <div class="alert" *ngIf="!userFrm.controls['email'].valid && userFrm.controls['email'].touched">
+              You must specify a valid email address
+          </div>
+
+          <label>First Name
+              <input type="text" placeholder="first name" style="width: 40%" name="fname" required [formControl]="userFrm.controls['fname']" formControlName="fname">
+          </label>
+
+          <div class="alert" *ngIf="!userFrm.controls['fname'].valid && userFrm.controls['fname'].touched">
+              You must specify a first name that's between 2 and 30 characters
+          </div>
+
+          <label>Last Name
+              <input type="text" placeholder="last name" style="width: 40%" name="lname" required [formControl]="userFrm.controls['lname']" formControlName="lname">
+          </label>
+
+          <div class="alert" *ngIf="!userFrm.controls['lname'].valid && userFrm.controls['lname'].touched">
+              You must specify a last name that's between 2 and 30 characters
+          </div>
+
+          <label>Password
+              <input type="password" placeholder="password" style="width: 30%" name="password" required [formControl]="userFrm.controls['password']" formControlName="password">
+          </label>
+
+          <div class="alert" *ngIf="!userFrm.controls['password'].valid && userFrm.controls['password'].touched">
+              You must specify a password that's at least 8 characters long, contains one uppercase and one lowercase letter and one number.
+          </div>
+
+          <label>Confirm Password
+              <input type="password" placeholder="confirm password" name="password2" style="width: 30%" required [formControl]="userFrm.controls['password2']" formControlName="password2">
+          </label>
+
+          <div class="alert" *ngIf="!userFrm.controls['password2'].valid && userFrm.controls['password2'].touched">
+              Your passwords do not match
+          </div>
+
+            <input type="submit" class="general-btn" value="Submit" [disabled]="!userFrm.valid">
+
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>

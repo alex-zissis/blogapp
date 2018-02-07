@@ -1,0 +1,50 @@
+.error {
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    color: white;
+}
+
+#margin-hack {
+    margin-bottom: 30px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}
+
+.errorS {
+    background-color: #db947f;
+    margin-bottom: 5px;
+}
+
+.info {
+    background-color: #0099FF;
+    margin-bottom: 5px;
+}
+
+.warning {
+    background-color: #e7d3a6;
+    margin-bottom: 5px;
+}
+
+.success {
+    background-color: #99e093;
+    margin-bottom: 5px;
+}

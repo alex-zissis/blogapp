@@ -1,0 +1,15 @@
+.header-btn {
+    background-color: #fff;
+    padding: 10px 5px 10px 5px;
+    margin: 0 2.5px 0 2.5px;
+    color: #000;
+    border-radius: 5px;
+}
+
+.header-btn:hover {
+    color: #0099FF; 
+}
+
+.title {
+    font-size: 1.6em;
+}

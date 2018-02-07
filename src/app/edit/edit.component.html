@@ -1,0 +1,34 @@
+<app-loading-spinner *ngIf="showSpinnerEdit"></app-loading-spinner>
+
+<div *ngIf="showSpinnerEdit == false" class="article-container">
+  <form [formGroup]="articleFrm" (ngSubmit)="editArticle(articleFrm.value)" *ngIf="articleFrm">
+    <div class="row expanded">
+      <div class="small-12 columns">
+        <label>Article Title
+          <input type="text" name="title" required [formControl]="articleFrm.controls['title']" formControlName="title">
+        </label>
+
+        <div class="alert" *ngIf="!articleFrm.controls['title'].valid && articleFrm.controls['title'].touched">
+          You must specify a title that's at least 10 characters long
+        </div>
+
+        <label>Article Content
+          <textarea [froalaEditor]='options' name="content" id="content" required [formControl]="articleFrm.controls['content']" formControlName="content"></textarea>
+        </label>
+
+        <div class="alert" *ngIf="!articleFrm.controls['content'].valid && articleFrm.controls['content'].touched">
+            You must specify content that's at least 10 characters long
+        </div>
+
+        <label>Select a Category
+            <select id="categorySelect" name="category" required [formControl]="articleFrm.controls['category']" formControlName="category">
+                <option *ngFor="let cat of categories" [value]="cat.name">{{cat.name}}</option>
+            </select>
+        </label>
+
+        <input type="submit" class="cta-btn filled" value="Edit Article" [disabled]="!articleFrm.valid">
+  
+      </div>
+    </div>
+  </form>
+</div>

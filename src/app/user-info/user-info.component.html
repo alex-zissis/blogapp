@@ -1,0 +1,17 @@
+<div *ngIf="(isLoggedIn | async)">
+		<div class="articlesList section-heading">
+				<span class="page-title">User</span>
+		</div>
+
+		<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+		<div class="user-info" *ngIf="loading == false">
+				<span class="page-subtitle">Welcome {{ user.fname }}</span><br><br>
+				<div class="navbar">
+          <a routerLink="/create" class="general-btn uinfo-btn" *ngIf="user.author">Add an article</a><a routerLink="/articles/author/{{user.username}}" class="general-btn uinfo-btn" *ngIf="user.author">My articles</a><a routerLink="/articles/author/{{user.username}}" class="general-btn uinfo-btn" *ngIf="user.author">Admin</a>
+				</div>
+				<div class="navbar">
+						<a routerLink="/account" class="general-btn uinfo-btn">My account</a><a routerLink="/articles/saved" class="general-btn uinfo-btn">Saved articles</a>
+				</div>
+		</div>
+</div>

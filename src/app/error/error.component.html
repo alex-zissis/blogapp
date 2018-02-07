@@ -1,0 +1,9 @@
+<div id="err-container" *ngIf="isMessage">
+  <div class="error" *ngFor="let err of errArr" id="error_{{err.name}}" [ngClass]="{ errorS: err.isErr, success: err.isSuc, warning: err.isWar, info: err.isInf }">
+    <div id="error-message_{{ err.name }}">
+      <span class="closebtn" (click)="hide(err.name)">&times;</span>
+      {{ err.message }}
+    </div>
+  </div>
+  <br>
+</div>

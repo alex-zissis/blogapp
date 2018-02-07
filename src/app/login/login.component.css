@@ -1,0 +1,11 @@
+.login-container {
+    padding: 5% 10% 5% 10%;
+    background-color: white;
+}
+
+
+.loginform {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
