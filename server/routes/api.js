@@ -25,6 +25,7 @@ mongoose.connect(db, {useMongoClient: true})
 
 passport.use(new Strategy(
 	function(username, password, done) {
+    username = username.toLowerCase();
 		User.findOne({username: username}, function (err, user) {
 			if(err) {return done(err);}
 
@@ -300,7 +301,7 @@ router.post('/users/register', function(req, res) {
 	//create a new instance of user and set all the variables to the form values
 	var newUser = new User();
 	newUser.username = req.body.username.toLowerCase();
-	newUser.email = req.body.email;
+	newUser.email = req.body.email.toLowerCase();
 	newUser.fname = req.body.fname;
 	newUser.lname = req.body.lname;
 	newUser.password = req.body.password;
