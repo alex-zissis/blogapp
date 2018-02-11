@@ -18,9 +18,13 @@ export class EditComponent implements OnInit {
   articleFrm: FormGroup;
   articles: Array<Article>;
   categories: Array<Category>;
-  showSpinnerEdit: boolean = true;
+  showSpinnerEdit = true;
 
-  constructor(private _articleService: ArticleService, private _categoryService: CategoryService, private router: Router, private aR: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private _articleService: ArticleService,
+    private _categoryService: CategoryService,
+    private router: Router,
+    private aR: ActivatedRoute,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
     this._categoryService.getCategories()
@@ -37,14 +41,14 @@ export class EditComponent implements OnInit {
           console.log(this.article);
 
           this.populateForm(function () {
-            //console.log('please work');
+            // console.log('please work');
           });
         });
     });
 
   }
 
-  populateForm(callback){
+  populateForm(callback) {
     this.articleFrm = this.fb.group({
       'title' : [this.article['title'], Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(45)])],
       'content' : [this.article['content'], Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -59,7 +63,7 @@ export class EditComponent implements OnInit {
     this._articleService.updateArticle(this.articleId, article)
       .subscribe(updatedArticle => {
         this.router.navigateByUrl('/');
-      })
+      });
   }
 }
 

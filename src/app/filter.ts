@@ -1,4 +1,4 @@
 export class Filter {
-	type: string;
-	filterVal: string;
+  type: string;
+  filterVal: string;
 }

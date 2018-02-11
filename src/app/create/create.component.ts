@@ -15,14 +15,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
-  
+
   articleFrm: FormGroup;
   articles: Array<Article>;
   categories: Array<Category>;
   user: User;
 
-  constructor(private _errorService: ErrorService, private _authService: AuthService, private _articleService: ArticleService, private _categoryService: CategoryService, private router: Router, private aR: ActivatedRoute, private fb: FormBuilder) { }
-  
+  constructor(private _errorService: ErrorService,
+    private _authService: AuthService,
+    private _articleService: ArticleService,
+    private _categoryService: CategoryService,
+    private router: Router,
+    private aR: ActivatedRoute,
+    private fb: FormBuilder) { }
+
   ngOnInit() {
     this._authService.getUserInfo()
       .subscribe(res => this.user = res);
@@ -31,7 +37,7 @@ export class CreateComponent implements OnInit {
       .subscribe(res => this.categories = res);
 
     this._articleService.getArticles()
-      .subscribe(res=> this.articles = res);
+      .subscribe(res => this.articles = res);
 
     this.articleFrm = this.fb.group({
       'title' : [null, Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -46,28 +52,29 @@ export class CreateComponent implements OnInit {
       .subscribe(newArticle => {
         this.articles.push(newArticle);
         this.router.navigateByUrl('/');
-      }, 
+      },
       err => {
-        let response = JSON.parse(err._body);
-        if(err.status == 401){
-            let errObj = {
-              type: "error",
+        const response = JSON.parse(err._body);
+        if (err.status === 401) {
+            const errObj = {
+              type: 'error',
               name: response.type,
               message: response.message,
-              statusCode: 401
-          }
-          this.pushError(errObj);   
-          if(errObj.name == "jwterror"){
+              statusCode: 401,
+              expires: true
+          };
+          this.pushError(errObj);
+          if (errObj.name === 'jwterror') {
             this._authService.clearToken();
             this.router.navigateByUrl('/login');
-          }else{
+          } else {
             this.router.navigateByUrl('/');
           }
     }
   });
 }
 
-  pushError(err){
+  pushError(err) {
     this._errorService.showError(err);
   }
 }

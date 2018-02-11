@@ -7,28 +7,30 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class ArticleService {
 
-  result:any;
+  result: any;
+  apiPath = '/api/';
+  // apiPath = '/api/v2/'
 
-  constructor(private _http: Http, private _authService : AuthService) { }
+  constructor(private _http: Http, private _authService: AuthService) { }
 
   getArticles() {
-	  return this._http.get("/api/all")
-	    .map(result => this.result = result.json());
+    return this._http.get(this.apiPath + 'all')
+      .map(result => this.result = result.json());
   }
 
   getArticlesByCategory(cat) {
-	  return this._http.get("/api/articles/category/"+cat)
-	    .map(result => this.result = result.json());
+    return this._http.get(this.apiPath + 'articles/category/' + cat)
+      .map(result => this.result = result.json());
   }
 
   getArticlesByAuthor(auth) {
-	  return this._http.get("/api/articles/author/"+auth)
-	    .map(result => this.result = result.json());
+    return this._http.get(this.apiPath + 'articles/author/' + auth)
+      .map(result => this.result = result.json());
   }
 
   getArticle(id) {
-  	return this._http.get("/api/articles/"+id)
-  		.map(result => this.result = result.json());
+    return this._http.get(this.apiPath + 'articles/' + id)
+      .map(result => this.result = result.json());
   }
 
   insertArticle(post: Article) {
@@ -41,11 +43,11 @@ export class ArticleService {
       .map(result => this.result = result.json());
   }
 
-  updateArticle(id, post){
+  updateArticle(id, post: Article) {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this._authService.getToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this._http.patch('/api/articles/update/'+ id, JSON.stringify(post), options)
+    return this._http.patch(this.apiPath + 'articles/update/' + id, JSON.stringify(post), options)
       .map(result => this.result = result.json());
   }
 
@@ -57,7 +59,7 @@ export class ArticleService {
     const payload = {
       id: id
     };
-    return this._http.patch('/api/articles/delete/' + id, JSON.stringify(payload), options)
+    return this._http.patch(this.apiPath + 'articles/delete/' + id, JSON.stringify(payload), options)
       .map(result => this.result = result.json());
   }
 }

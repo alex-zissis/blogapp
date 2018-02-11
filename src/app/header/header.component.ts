@@ -8,18 +8,18 @@ import { Observable } from "rxjs";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   host : {
-    '(window:scroll)': 'updateHeader($event)'
+    '(window:scroll)': 'updateHeader($event)' // to review
   }
 })
 export class HeaderComponent implements OnInit {
-  
-  isLoggedIn : Observable<boolean>;
-  stickyBar : boolean = false;
+
+  isLoggedIn: Observable<boolean>;
+  stickyBar = false;
   currPos: Number = 0;
   startPos: Number = 0;
   changePos: Number = 25;
 
-  constructor(private _authService : AuthService) {
+  constructor(private _authService: AuthService) {
     this.isLoggedIn = _authService.isLoggedInObvs();
    }
 
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
 
   updateHeader(evt) {
      this.currPos = (window.pageYOffset || evt.target.scrollTop) - (evt.target.clientTop || 0);
-        if(this.currPos >= this.changePos ) {
+        if (this.currPos >= this.changePos ) {
             this.stickyBar = true;
         } else {
             this.stickyBar = false;

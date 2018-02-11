@@ -8,14 +8,13 @@ export class ErrorService {
   currentMessage = this.subject.asObservable();
   prevName: String;
 
-  showError(errPassed){
-    if(errPassed.name != this.prevName) {
+  showError(errPassed) {
+    if (errPassed.name !== this.prevName) {
       this.subject.next(errPassed);
         setTimeout(function() {
-          this.prevName = "";
+          this.prevName = '';
         }.bind(this), 5000);
       }
     this.prevName = errPassed.name;
   }
-
 }

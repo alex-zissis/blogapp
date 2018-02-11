@@ -16,7 +16,9 @@ export class RegisterComponent implements OnInit {
 
   userFrm: FormGroup;
 
-  constructor(private fb : FormBuilder, private _authService : AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder,
+    private _authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.userFrm = this.fb.group({
@@ -26,7 +28,7 @@ export class RegisterComponent implements OnInit {
       'lname' : [null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])],
       'password' : [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
       'password2' : [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
-    },{
+    }, {
       validator: [PasswordValidation.MatchPassword, EmailValidation.EmailValid, PasswordValid.ValidPassword, FormCheck.Checked]
     });
   }

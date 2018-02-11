@@ -9,42 +9,42 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-	{
-		path: '',
-		component: HomeComponent
-	},
-	{
-		path: 'articles/category/:category',
-		component: HomeComponent
-	},
-	{
-		path: 'articles/author/:author',
-		component: HomeComponent
-	},
-	{
-		path: 'articles/:id',
-		component: ArticleComponent
-	},
-	{
-		path: 'create',
-		component: CreateComponent
-	},
-	{
-		path: 'edit/:id',
-		component: EditComponent
-	},
-	{
-		path: 'register',
-		component: RegisterComponent
-	},
-	{
-		path: 'login',
-		component: LoginComponent
-	},
-	{
-		path: '**',
-		redirectTo:'/'
-	}
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'articles/category/:category',
+    component: HomeComponent
+  },
+  {
+    path: 'articles/author/:author',
+    component: HomeComponent
+  },
+  {
+    path: 'articles/:id',
+    component: ArticleComponent
+  },
+  {
+    path: 'create',
+    component: CreateComponent
+  },
+  {
+    path: 'edit/:id',
+    component: EditComponent
+  },
+  {
+  path: 'register',
+  component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+  path: '**',
+    redirectTo: '/'
+  }
 ];
 
 @NgModule({

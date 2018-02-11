@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
 
   loginFrm: FormGroup;
 
-  constructor(private deviceService: DeviceDetectorService, private fb : FormBuilder, private _authService : AuthService, private router: Router, private _errorService : ErrorService) { }
+  constructor(private fb: FormBuilder,
+    private _authService: AuthService,
+    private router: Router,
+    private _errorService: ErrorService) { }
 
   ngOnInit() {
     this.loginFrm = this.fb.group({
@@ -25,13 +28,11 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginFrmData) {
     const values = loginFrmData;
-    const userAgent = this.deviceService.getDeviceInfo();
 
     const payload = {
       username : values.username,
       password : values.password,
-      userAgent : userAgent
-    }
+    };
 
     this._authService.login(payload)
       .subscribe(res => {
@@ -39,13 +40,13 @@ export class LoginComponent implements OnInit {
         this._authService.setToken(res.token);
         this.router.navigateByUrl('/');
       }, err => {
-        let errObj = {
-          type: "error",
-          name: "badlogin",
-          message: "Incorrect username or password, please try again.",
+        const errObj = {
+          type: 'error',
+          name: 'badlogin',
+          message: 'Incorrect username or password, please try again.',
           statusCode: 401,
           expires: true
-        }
+        };
         this.pushError(errObj);
       });
   }

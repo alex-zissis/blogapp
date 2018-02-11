@@ -12,35 +12,37 @@ import { Observable } from 'rxjs';
 })
 export class UserInfoComponent implements OnInit {
 
-  isLoggedIn : Observable<boolean>;
-  hasToken : boolean;
+  isLoggedIn: Observable<boolean>;
+  hasToken: boolean;
   user: any;
   loading = true;
 
-  constructor(private _authService : AuthService, private _errorService : ErrorService, private router : Router) {
-    this.isLoggedIn = _authService.isLoggedInObvs();
-    this.hasToken = _authService.isLoggedIn();
+  constructor(private _authService: AuthService,
+    private _errorService: ErrorService,
+    private router: Router) {
+      this.isLoggedIn = _authService.isLoggedInObvs();
+      this.hasToken = _authService.isLoggedIn();
   }
 
   ngOnInit() {
 
-    if(this.hasToken) {
+    if (this.hasToken) {
       this._authService.getUserInfo()
       .subscribe(res => {
         this._authService.isLoginSubject.next(true);
         this.user = res;
         this.loading = false;
       }, err => {
-        if(this.isLoggedIn){
-          let response = JSON.parse(err._body);
+        if (this.isLoggedIn) {
+          const response = JSON.parse(err._body);
           this._authService.clearToken();
-          let errObj = {
-            type: "error",
+          const errObj = {
+            type: 'error',
             name: response.type,
             message: response.message,
             statusCode: 401,
             expires: true
-          }
+          };
           this._authService.isLoginSubject.next(false);
           this.pushError(errObj);
           this.router.navigateByUrl('/login');
@@ -51,7 +53,7 @@ export class UserInfoComponent implements OnInit {
     }
   }
 
-  pushError(err){
+  pushError(err) {
     this._errorService.showError(err);
   }
 }
